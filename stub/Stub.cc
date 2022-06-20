@@ -12,21 +12,7 @@ extern "C" {
 }
 #include <common/VI.hh>
 
-#include <compare>
 #include <cstring>
-
-auto operator<=>(const VersionInfo& lhs, const VersionInfo &rhs) {
-    if (auto cmp = lhs.major <=> rhs.major; cmp != 0) {
-        return cmp;
-    }
-    if (auto cmp = lhs.minor <=> rhs.minor; cmp != 0) {
-        return cmp;
-    }
-    if (auto cmp = lhs.patch <=> rhs.patch; cmp != 0) {
-        return cmp;
-    }
-    return std::strong_ordering::equal;
-}
 
 namespace Stub {
 
@@ -147,7 +133,7 @@ static std::optional<LoaderEntryFunc> Run() {
 #ifdef SP_CHANNEL
     if (nandVersionInfo) {
 #else
-    if (nandVersionInfo && **nandVersionInfo >= **embeddedVersionInfo) {
+    if (nandVersionInfo && **nandVersionInfo > **embeddedVersionInfo) {
 #endif
         Console::Print("Using the NAND archive.\n");
         archive = &*nandArchive;

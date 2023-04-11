@@ -6,6 +6,7 @@
 #include "game/ui/SectionManager.hh"
 #include "game/ui/SettingsPage.hh"
 #include "game/ui/page/BattleModeSelectPage.hh"
+#include "game/ui/MissionLevelSelectPage.hh"
 #include "game/ui/page/MenuPage.hh"
 
 #include <sp/settings/ClientSettings.hh>
@@ -237,7 +238,7 @@ void SingleTopPage::onMRButtonFront(PushButton *button, u32 /* localPlayerId */)
     }
 
     Section *section = SectionManager::Instance()->currentSection();
-    auto *page = section->page(PageId::MissionLevelSelect)->downcast<MenuPage>();
+    auto *page = section->page<PageId::MissionLevelSelect>();
     assert(page);
     page->m_prevId = PageId::SingleTop;
 

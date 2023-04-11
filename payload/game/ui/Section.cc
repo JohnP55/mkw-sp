@@ -10,6 +10,7 @@
 #include "game/ui/FriendRoomPage.hh"
 #include "game/ui/FriendRoomRulesPage.hh"
 #include "game/ui/LicenseSelectPage.hh"
+#include "game/ui/MissionLevelSelectPage.hh"
 #include "game/ui/ModelRenderPage.hh"
 #include "game/ui/MultiTeamSelectPage.hh"
 #include "game/ui/MultiTopPage.hh"
@@ -444,8 +445,27 @@ Page *Section::CreatePage(PageId pageId) {
         return new MenuSettingsPage;
     case PageId::SettingsPopup:
         return new SettingsPagePopup;
+    case PageId::MissionLevelSelect:
+        return new MissionLevelSelectPage;
     default:
         return REPLACED(CreatePage)(pageId);
+    }
+}
+
+u32 Section::GetMultiTrackIndex(PageId pageId) {
+    switch(pageId) {
+        case PageId::MissionLevelSelect:
+            return 0;
+        case PageId::MissionStageSelect:
+            return 0;
+        case PageId::MissionDrift:
+            return 1;
+        case PageId::MissionTutorial:
+            return 1;
+        case PageId::MissionInstruction:
+            return 2;
+        default:
+            return REPLACED(GetMultiTrackIndex)(pageId);
     }
 }
 

@@ -23,6 +23,7 @@ class MenuMessagePage;
 class MenuSettingsPage;
 class MessagePagePopup;
 class MissionInstructionPage;
+class MissionLevelSelectPage;
 class ModelPage;
 class ModelRenderPage;
 class OnlineConnectionManagerPage;
@@ -66,6 +67,8 @@ public:
     static const char *REPLACED(GetResourceName)(SectionId id);
     static REPLACE const char *GetResourceName(SectionId id);
     static Sound::SoundId GetSoundId(SectionId id);
+    static REPLACE u32 GetMultiTrackIndex(PageId id);
+    static u32 REPLACED(GetMultiTrackIndex)(PageId id);
     static bool HasRoomClient(SectionId sectionId);
     static bool HasRaceClient(SectionId sectionId);
 
@@ -148,6 +151,11 @@ struct Section::PageIdHelper<PageId::TeamConfirm> {
 template <>
 struct Section::PageIdHelper<PageId::MissionInstruction> {
     using type = MissionInstructionPage;
+};
+
+template <>
+struct Section::PageIdHelper<PageId::MissionLevelSelect> {
+    using type = MissionLevelSelectPage;
 };
 
 template <>

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "game/ui/PageId.hh"
 #include "game/sound/SoundId.hh"
 
 #include <nw4r/snd/SoundHandle.hh>
@@ -7,6 +8,8 @@
 #include <Common.hh>
 
 namespace Sound {
+
+enum class PageId;
 
 class SceneSoundManager {
 public:
@@ -27,7 +30,8 @@ public:
     static SceneSoundManager *Instance();
 
 private:
-    u8 _00[0x18 - 0x00];
+    PageId pageId;
+    u8 _00[0x18 - 0x04];
 
     static nw4r::snd::SoundHandle s_handle;
     static SceneSoundManager *s_instance;

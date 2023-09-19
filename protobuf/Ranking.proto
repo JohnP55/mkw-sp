@@ -3,7 +3,7 @@ syntax = "proto2";
 message RankingResponse {
     message Player {
         required string name = 1;
-        required string time = 2;
+        required int32 time = 2;
     }
 
     repeated Player players = 1;

@@ -22,8 +22,8 @@ void SPRankingGhostDownloadPage::onActivate() {
     switch (section->page<PageId::Ranking>()->ghostType()) {
     case GHOST_TYPE_WORLD_CHAMPION:
     case GHOST_TYPE_CONTINENTAL_CHAMPION:
-        char url[60];
-        snprintf(url, sizeof(url), "http://mkw-sp.com/api/GetTopRanking?region=%d&course=%d",
+        char url[90];
+        snprintf(url, sizeof(url), "http://127.0.0.1:5299/api/GetTopRanking?region=%d&course=%d",
                 getRegionParameterValue(), getCourseParameterValue());
         if (makeRequest(url)) {
             transition(State::Request);

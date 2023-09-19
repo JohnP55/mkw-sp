@@ -36,6 +36,7 @@ class OptionExplanationPage;
 class OptionSelectPage;
 class RaceConfirmPage;
 class RankingPage;
+class RankingDetailPage;
 class RoulettePage;
 class SPRankingGhostDownloadPage;
 class SPRankingTopTenDownloadPage;
@@ -322,6 +323,11 @@ struct Section::PageIdHelper<PageId::SPRankingGhostDownload> {
 template <>
 struct Section::PageIdHelper<PageId::SPRankingTopTenDownload> {
     using type = SPRankingTopTenDownloadPage;
+};
+
+template <>
+struct Section::PageIdHelper<PageId::RankingDetail> {
+    using type = RankingDetailPage;
 };
 
 } // namespace UI

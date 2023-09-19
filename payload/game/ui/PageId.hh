@@ -177,10 +177,11 @@ enum class PageId {
     GhostManager = 0xA7,
     Ranking = 0xA8,
     RankingBack = 0xAA,
-
+    RankingObi = 0xAB,
     ChannelStartTimeTrial = 0xAC,
     ChannelGhostSelected = 0xAD,
     RankingTopTenDownload = 0xAE,
+    RankingDetail = 0xAF,
 
     UnknownB3 = 0xB3, // "Resides behind 0x4F, loads 0xB4"
     ChannelGhostList = 0xB4,

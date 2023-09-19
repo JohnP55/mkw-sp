@@ -2,6 +2,7 @@
 
 #include "game/ui/AwaitPage.hh"
 #include "game/ui/MessagePage.hh"
+#include "game/ui/RankingDetailPage.hh"
 #include "game/ui/SectionManager.hh"
 
 #include <cstdio>
@@ -22,8 +23,8 @@ void SPRankingTopTenDownloadPage::onActivate() {
         break;
     case RankingPage::Area::Regional:
     case RankingPage::Area::Worldwide:
-        char url[60];
-        snprintf(url, sizeof(url), "http://mkw-sp.com/api/GetTopTenRankings?region=%d&course=%d",
+        char url[90];
+        snprintf(url, sizeof(url), "http://127.0.0.1:5299/api/GetTopTenRankings?region=%d&course=%d",
                 getRegionParameterValue(), getCourseParameterValue());
         if (makeRequest(url)) {
             transition(State::Request);
@@ -62,24 +63,45 @@ void SPRankingTopTenDownloadPage::transition(State state) {
         menuMessagePage->reset();
         switch (responseStatus()) {
         case ResponseStatus::Ok:
-            menuMessagePage->setWindowMessage(10430);
+            sendToRankingDetailPage();
+            push(PageId::RankingDetail, Anim::Next);
             break;
         case ResponseStatus::RequestError:
             menuMessagePage->setWindowMessage(10448);
+            push(PageId::MenuMessage, Anim::Next);
             break;
         case ResponseStatus::ResponseError:
             menuMessagePage->setWindowMessage(10449);
+            push(PageId::MenuMessage, Anim::Next);
             break;
         }
-        push(PageId::MenuMessage, Anim::Next);
         break;
     case State::Finished:
         m_replacement = PageId::Ranking;
-        startReplace(Anim::Next, 0.0f);
+        startReplace(Anim::Prev, 0.0f);
         break;
     }
 
     m_state = state;
+}
+
+void SPRankingTopTenDownloadPage::sendToRankingDetailPage() {
+    auto section = SectionManager::Instance()->currentSection();
+    auto *rankingDetailPage = section->page<PageId::RankingDetail>();
+    auto leaderboards = rankingResponse();
+    timeArr.count = leaderboards.players_count;
+    for (int i = 0; i < timeArr.count; i++) {
+        auto timeEntry = &timeArr.times[i];
+        auto responseEntry = &leaderboards.players[i];
+
+        timeEntry->minutes = responseEntry->time / 60000;
+        timeEntry->seconds = responseEntry->time / 1000 % 60;
+        timeEntry->milliseconds = responseEntry->time % 1000;
+
+        //timeEntry->controller = responseEntry->
+        // add the mii lolxd
+    }
+    rankingDetailPage->initRaceLeaderboardGlobal(section->page<PageId::Ranking>()->course(), section->page<PageId::Ranking>()->area(), &timeArr);
 }
 
 } // namespace UI

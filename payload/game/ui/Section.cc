@@ -20,6 +20,7 @@
 #include "game/ui/PackSelectPage.hh"
 #include "game/ui/RandomMatchingPage.hh"
 #include "game/ui/RankingPage.hh"
+#include "game/ui/RankingDetailPage.hh"
 #include "game/ui/RoulettePage.hh"
 #include "game/ui/SPRankingGhostDownloadPage.hh"
 #include "game/ui/SPRankingTopTenDownloadPage.hh"
@@ -507,13 +508,14 @@ void Section::addPages(SectionId id) {
             {SectionId::ServicePackRankings, PageId::SpinnerAwait},
             {SectionId::ServicePackRankings, PageId::MenuMessage},
             {SectionId::ServicePackRankings, PageId::Confirm},
-            {SectionId::ServicePackRankings, PageId::Obi},
+            {SectionId::ServicePackRankings, PageId::RankingObi},
             {SectionId::ServicePackRankings, PageId::CourseSelect},
             {SectionId::ServicePackRankings, PageId::Globe},
             {SectionId::ServicePackRankings, PageId::Ranking},
             {SectionId::ServicePackRankings, PageId::ChannelStartTimeTrial},
             {SectionId::ServicePackRankings, PageId::SPRankingGhostDownload},
             {SectionId::ServicePackRankings, PageId::SPRankingTopTenDownload},
+            {SectionId::ServicePackRankings, PageId::RankingDetail},
             // clang-format on
     };
     for (const auto &addition : additions) {
@@ -551,7 +553,7 @@ void Section::addActivePages(SectionId id) {
             {SectionId::ServicePackChannel, PageId::Obi},
             {SectionId::ServicePackChannel, PageId::ServicePackChannel},
 
-            {SectionId::ServicePackRankings, PageId::Obi},
+            {SectionId::ServicePackRankings, PageId::RankingObi},
             {SectionId::ServicePackRankings, PageId::Ranking},
     };
     for (const auto &addition : additions) {
